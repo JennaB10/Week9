@@ -18,10 +18,25 @@ firebase.auth().onAuthStateChanged(async function(user) {
       event.preventDefault()
       let postUsername = user.displayName
       let postImageUrl = document.querySelector('#image-url').value
+      
       // 🔥🔥🔥 Lab
       // Step 1:    POST fetch the create_post endpoint. Send the currently logged-in
       //            user's uid and username, and the image URL from the form in the
       //            POST request's body.
+      
+      //go get it from create posts, send something from the user to the backend sent for example a new image URL.
+      // in JS it should grab your username and post and then send it to the back end create_post and then that sends it to fireabse
+
+      let response = await fetch('/.netlify/functions/create_post', {
+        method: 'POST',
+        body: JSON.stringify({ // JSON has data in it if you want to send it to netlify then need to use stringify
+          postUsername: postUsername, //the one on the left is what the post itself will expect and the one on the right is whatever you named the variable
+          UserId: user.uid, //can call all of these whatever we want we just need to call it on the other side in our lamda function (create_posts.js) //uid is a unique identifier
+          postImageUrl: postImageUrl
+        }) // this code is making a request to the API on the creat (create_posts) so it makes sense that the next step is over in the create_posts.js function
+      })
+      console.log(response)
+  
       // Step 2-5:  Implement the lambda function in create_post.js
       // Step 6:    The lambda should return an Object of data with information on the
       //            the post, including the newly created post's id and likes. Use this

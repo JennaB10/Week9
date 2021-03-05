@@ -53,6 +53,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     // FirebaseUI configuration
     let authUIConfig = {
+      
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
